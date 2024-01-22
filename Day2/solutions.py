@@ -26,3 +26,35 @@ class Solution(object):
 
         # Return the values (lists of anagrams) from the defaultdict as a result.
         return res.values()
+
+# 347. Top K Frequent Elements
+# Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.
+
+class Solution(object):
+    def topKFrequent(self, nums, k):
+        # Dictionary to store the count of each element in 'nums'.
+        count = {}
+        
+        # List of lists to store elements grouped by their frequency.
+        freq = [[] for i in range(len(nums) + 1)]
+
+        # Count the occurrences of each element in 'nums'.
+        for n in nums:
+            count[n] = 1 + count.get(n, 0)
+
+        # Group elements by their frequency in the 'freq' list.
+        for n, c in count.items():
+            freq[c].append(n)
+        
+        # List to store the final result of top k frequent elements.
+        res = []
+
+        # Iterate through the 'freq' list in reverse order (higher frequency first).
+        for i in range(len(freq) - 1, 0, -1):
+            for n in freq[i]:
+                # Append the current element to the result list.
+                res.append(n)
+                
+                # Check if we have collected k elements, and if so, return the result.
+                if len(res) == k:
+                    return res
