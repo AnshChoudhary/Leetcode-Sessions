@@ -20,3 +20,26 @@ class Solution(object):
                 
         return max_vol
         
+# 42. Trapping Rain Water
+# Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.
+class Solution(object):
+    def trap(self, height):
+        """
+        :type height: List[int]
+        :rtype: int
+        """
+        l, r = 0, len(height) - 1
+        maxL, maxR = height[l], height[r]
+        res = 0
+
+        while l < r:
+            if maxL < maxR:
+                l += 1
+                maxL = max(height[l], maxL)
+                res += (maxL - height[l])
+            else:
+                r -= 1
+                maxR = max(height[r], maxR)
+                res += (maxR - height[r])
+        
+        return res
