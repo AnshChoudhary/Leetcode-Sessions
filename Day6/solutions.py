@@ -56,3 +56,35 @@ class MinStack(object):
         :rtype: int
         """
         return self.minStack[-1]
+
+# 150. Evaluate Reverse Polish Notation
+# You are given an array of strings tokens that represents an arithmetic expression in a Reverse Polish Notation.
+
+class Solution(object):
+    def evalRPN(self, tokens):
+        """
+        :type tokens: List[str]
+        :rtype: int
+        """
+        symbol = ["+", "-", "*", "/"]
+        res = 0
+        stack = []
+        for i in tokens:
+            if i in symbol: 
+                op2 = stack.pop() #3
+                op1 = stack.pop() #3
+                if i == "+":
+                    res = op1 + op2
+                    stack.append(res)
+                elif i == "-":
+                    res = op1 - op2
+                    stack.append(res)
+                elif i == "*":
+                    res = op1 * op2
+                    stack.append(res)
+                else:
+                    res = int(float(op1) / op2)
+                    stack.append(res)
+            else:
+                stack.append(int(i))
+        return stack[0]
