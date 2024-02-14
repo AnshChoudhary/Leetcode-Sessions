@@ -20,3 +20,28 @@ class Solution(object):
             else:
                 right = mid - 1
         return left
+
+
+# 153. Find Minimum in Rotated Array
+# Given the sorted rotated array nums of unique elements, return the minimum element of this array.
+
+class Solution(object):
+    def findMin(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        l, r = 0, len(nums) - 1
+        curr_min = float("inf")
+
+        while l <= r:
+            mid = l + (r - l) // 2
+            curr_min = min(curr_min,nums[mid])
+            if nums[mid] > nums[r]:
+                l = mid + 1
+                
+            # left has the  min 
+            else:
+                r = mid - 1 
+            
+        return curr_min
