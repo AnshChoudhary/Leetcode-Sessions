@@ -38,4 +38,28 @@ class Solution(object):
             charSet.add(s[r])
             res = max(res, r - l + 1)
         return res
+        
+
+# 424. Longest Repeating Character Replacement
+# Return the length of the longest substring containing the same letter you can get after performing the above operations.
+class Solution(object):
+    def characterReplacement(self, s, k):
+        """
+        :type s: str
+        :type k: int
+        :rtype: int
+        """
+        count = {}
+        
+        l = 0
+        maxf = 0
+        for r in range(len(s)):
+            count[s[r]] = 1 + count.get(s[r], 0)
+            maxf = max(maxf, count[s[r]])
+
+            if (r - l + 1) - maxf > k:
+                count[s[l]] -= 1
+                l += 1
+
+        return (r - l + 1)
 
